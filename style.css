@@ -423,4 +423,8 @@ h1 {
   .flip-card-inner {
     width: 100%;
   }
+
+  .flip-card-back {
+    display: none;
+  }
 }
