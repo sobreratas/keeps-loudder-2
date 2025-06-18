@@ -427,4 +427,9 @@ h1 {
   .flip-card-back {
     display: none;
   }
+
+  /* Apply rotation when hovering over the flip card */
+.flip-card:hover .flip-card-inner {
+  transform: none; /* Rotate around Y-axis for flipping */
+}
 }
