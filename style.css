@@ -12,6 +12,18 @@ body {
   color: #fff;
 }
 
+video {
+  left: 50%;
+  min-height: 100%;
+  min-width: 100%;
+  -o-object-fit: cover;
+  object-fit: cover;
+  position: relative;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  animation: logoFadeIn 1.2s linear;
+}
+
 .header-section {
   height: 100vh;
   display: flex;
@@ -19,18 +31,58 @@ body {
   align-items: center;
   justify-content: center;
   gap: 12px;
-  background-image: url("fabric2.png");
+  background-image: url("");
   background-position: center;
   background-repeat: none;
   background-size: cover;
   width: 100%;
+  position: relative;
 }
 
-h1 {
+.gradient-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.5),
+    rgba(0, 0, 0, 0.5)
+  );
+  z-index: 1;
+}
+
+.header-content {
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  animation: logoFadeIn 1.2s linear;
+}
+
+.header-content h1 {
   font-size: 5rem;
   letter-spacing: 0.5rem;
 }
 
+.header-content p {
+  letter-spacing: 5px;
+  margin-top: 10px;
+  font-size: 1.5rem;
+}
+
+@keyframes logoFadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
 .bento-wrapper {
   display: flex;
   justify-content: center;
@@ -43,6 +95,7 @@ h1 {
 }
 
 .bento-container {
+  margin-top: 30px;
   width: 80%;
   /* border: 1px solid white; */
   display: flex;
@@ -72,6 +125,15 @@ h1 {
   background-position: center;
   background-repeat: none;
   background-size: cover;
+  filter: saturate(0.8);
+  transition: filter 0.3s ease-in-out;
+}
+
+.row-top-left:hover,
+.row-top-right:hover,
+.box:hover,
+.right-bottom-box:hover {
+  filter: saturate(1.3);
 }
 
 .row-top-left {
@@ -144,6 +206,10 @@ h1 {
   justify-content: center;
 }
 
+.about-img-container {
+  padding: none;
+}
+
 .about-text-container {
   line-height: 1.5;
   font-size: 1.8rem;
@@ -171,6 +237,10 @@ h1 {
   flex-direction: column;
   align-items: start;
   gap: 0.5rem;
+}
+
+.footer-box.left {
+  gap: 3rem;
 }
 
 .footer-box.right a {
@@ -210,10 +280,14 @@ h1 {
   background: #333;
   color: #fff;
   text-align: left;
-  transition: background 0.2s;
+  transition: background-color 0.3s ease-in-out;
   margin-bottom: 1rem;
   border-radius: 12px;
   font-size: 1.3rem;
+}
+
+.accordion_btn:hover {
+  background-color: #444;
 }
 
 .accordion_btn::after {
@@ -225,6 +299,8 @@ h1 {
 .accordion_btn_active {
   background: #555;
   margin-bottom: 0;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
 }
 
 .accordion_btn_active::after {
@@ -246,6 +322,8 @@ h1 {
   padding: 1rem;
   font-size: 1.1rem;
   line-height: 1.5;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
 }
 
 .map {
@@ -268,11 +346,23 @@ h1 {
 
 .fade-in {
   opacity: 0;
-  transition: opacity 0.3s ease-in-out;
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+  transform: scale(0.75);
 }
 
 .fade-in.show {
   opacity: 1;
+  transform: scale(1);
+}
+
+.grow {
+  transition: transform 0.5s ease-in-out;
+  transform: scale(0);
+}
+
+.grow.show {
+  opacity: 1;
+  transform: scale(1);
 }
 
 /* LEFT AND RIGHT CARDS */
@@ -329,8 +419,6 @@ h1 {
   transform: rotateY(180deg); /* Rotate the back face so it shows after flip */
 }
 
-
-
 /* Ensure images take up the entire space of their container */
 .flip-card img {
   width: 100%; /* Take up full width of container */
@@ -338,14 +426,17 @@ h1 {
 }
 
 @media screen and (max-width: 600px) {
-  h1 {
+  .header-content {
+    top: 40%;
+  }
+  .header-content h1 {
     text-align: center;
     font-size: 1.7rem;
     letter-spacing: 0.5rem;
   }
 
-  h1 span {
-    display: none;
+  .header-content p {
+    font-size: .9rem;
   }
 
   .bento-container,
@@ -367,12 +458,14 @@ h1 {
   .row-bottom {
     flex-direction: column;
     width: 100%;
+    filter: saturate(1);
   }
 
   .right-bottom-box,
   .row-top-right,
   .row-top-left {
     min-height: 300px;
+    filter: saturate(1);
   }
 
   .about-container {
@@ -380,7 +473,7 @@ h1 {
   }
 
   .about-img-container {
-   width: 100%;
+    width: 100%;
   }
 
   .about-img-container img {
@@ -390,10 +483,12 @@ h1 {
   .about-text-container {
     line-height: 1.5;
     font-size: 1.3rem;
-    text-align: center;
+    text-align: left;
   }
 
   .footer-box.left {
+    text-align: center;
+    justify-content: center;
     align-items: center;
   }
 
@@ -429,7 +524,16 @@ h1 {
   }
 
   /* Apply rotation when hovering over the flip card */
-.flip-card:hover .flip-card-inner {
-  transform: none; /* Rotate around Y-axis for flipping */
-}
+  .flip-card:hover .flip-card-inner {
+    transform: none; /* Rotate around Y-axis for flipping */
+  }
+
+  .grow {
+    transition: none;
+    transform: scale(1);
+  }
+
+  .grow.show {
+    transform: scale(1);
+  }
 }
