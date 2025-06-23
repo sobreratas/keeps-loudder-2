@@ -342,6 +342,10 @@ video {
   margin: 12px 8px;
 }
 
+.fa-phone {
+  margin-right: 8px;
+}
+
 /* OBSERVER STYLES */
 
 .fade-in {
